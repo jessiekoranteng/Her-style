@@ -31,7 +31,6 @@ export function CartPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           {items.length === 0 ? (
-            {/* Empty Cart */}
             <div className="text-center py-20">
               <ShoppingBag className="h-16 w-16 mx-auto text-neutral-300 mb-6" />
               <h2 className="font-display font-medium text-3xl text-neutral-900 mb-4">Your bag is empty</h2>
@@ -46,7 +45,6 @@ export function CartPage() {
           ) : (
             <>
               <div className="grid lg:grid-cols-3 gap-12">
-                {/* Cart Items */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
                     <h2 className="font-medium text-neutral-900">
@@ -89,7 +87,6 @@ export function CartPage() {
                   </div>
                 </div>
 
-                {/* Order Summary */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-24 bg-neutral-50 rounded-lg p-6">
                     <h2 className="font-medium text-neutral-900 mb-6">Order Summary</h2>
@@ -131,7 +128,6 @@ export function CartPage() {
                 </div>
               </div>
 
-              {/* Trust Bar */}
               <div className="mt-16 py-12 border-y border-neutral-200">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div className="trust-item">
@@ -218,7 +214,7 @@ function CartItem({
       <div className="flex-1 min-w-0 flex flex-col justify-between">
         <div>
           <Link
-            href={`/product/${item.product.slug}`}
+            href={`/product/${(item.product as any).id || item.product.name}`}
             className="font-medium text-neutral-900 hover:text-black transition-colors truncate block"
           >
             {item.product.name}

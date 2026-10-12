@@ -119,15 +119,20 @@ export type PaymentStatus =
   | "refunded"
   | "partially_refunded"
 
+export type UserRole = "CUSTOMER" | "ADMIN"
+
 export interface User {
   id: string
   email: string
-  firstName: string
-  lastName: string
+  name?: string
+  firstName?: string
+  lastName?: string
   phone?: string
   avatar?: string
+  image?: string
+  role: UserRole
   addresses: Address[]
-  orders: string[]
+  orders: Order[]
   createdAt: string
   updatedAt: string
 }

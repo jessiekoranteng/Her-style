@@ -71,7 +71,7 @@ export function CheckoutPage() {
     ]
     requiredFields.forEach(field => {
       if (!formData[field]) {
-        newErrors[field] = "This field is required"
+        newErrors[field] = "This field is required" as any
       }
     })
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {

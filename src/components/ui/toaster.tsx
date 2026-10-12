@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Toaster as SonnerToaster, type ToastProps } from "sonner"
+import { Toaster as SonnerToaster, type ToasterProps } from "sonner"
 import { cn } from "@/lib/utils"
 
-const Toaster = ({ ...props }: ToastProps) => {
+const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <SonnerToaster
       theme="system"
