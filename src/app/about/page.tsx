@@ -43,7 +43,7 @@ export default function AboutPage() {
               Trendy • Elegant • You
             </h1>
             <p className="text-white/90 text-lg leading-relaxed">
-              HerStyle was born from a passion for making elegant fashion accessible to every woman. We believe that style shouldn't come at the cost of quality or comfort.
+              HerStyle was born from a passion for making elegant fashion accessible to every woman. We believe that style shouldn’t come at the cost of quality or comfort.
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
                   From the fabrics we select to the designs we showcase, every piece in our collection tells a story of craftsmanship and care. We work directly with artisans and trusted suppliers to ensure quality that lasts.
                 </p>
                 <p>
-                  More than just a store, HerStyle is a community of women who appreciate the art of dressing well. Whether you're looking for the perfect dress for a special occasion, premium lace for your next sewing project, or everyday essentials that elevate your wardrobe, we're here to help you express your unique style.
+                  More than just a store, HerStyle is a community of women who appreciate the art of dressing well. Whether you’re looking for the perfect dress for a special occasion, premium lace for your next sewing project, or everyday essentials that elevate your wardrobe, we’re here to help you express your unique style.
                 </p>
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function AboutPage() {
                 <Headphones className="h-5 w-5" />
               </div>
               <h4 className="font-medium text-sm text-neutral-900">Customer Support</h4>
-              <p className="text-xs text-neutral-500">We're here to help</p>
+              <p className="text-xs text-neutral-500">We’re here to help</p>
             </div>
           </div>
         </div>

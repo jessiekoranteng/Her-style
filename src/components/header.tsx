@@ -2,6 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useCartStore } from "@/lib/store"
 import {
   ShoppingBag,
@@ -11,9 +13,10 @@ import {
   X,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import type { PublicSiteSettings } from "@/lib/site-settings"
 
-export function Header() {
-  const { items, isOpen, toggleCart, getItemCount } = useCartStore()
+export function Header({ settings }: { settings: PublicSiteSettings }) {
+  const { toggleCart, getItemCount } = useCartStore()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const itemCount = getItemCount()
@@ -38,8 +41,8 @@ export function Header() {
                 </svg>
               </div>
               <div className="hidden sm:block">
-                <span className="text-2xl font-display font-medium text-black">HerStyle</span>
-                <p className="text-xs text-neutral-500 uppercase tracking-wider leading-none">CLOTHES • LACES • ACCESSORIES • SHOES • BAGS</p>
+                <span className="text-2xl font-display font-medium text-black">{settings.storeName}</span>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider leading-none">{settings.tagline}</p>
               </div>
             </Link>
 
@@ -154,6 +157,7 @@ export function Header() {
 }
 
 function CartDrawer() {
+  const router = useRouter()
   const { items, isOpen, closeCart, removeItem, updateQuantity, getSubtotal } =
     useCartStore()
   const subtotal = getSubtotal()
@@ -196,7 +200,7 @@ function CartDrawer() {
                 Your bag is empty
               </h3>
               <p className="text-neutral-500 mb-6">
-                Looks like you haven't added any products yet.
+                Looks like you haven’t added any products yet.
               </p>
               <button
                 onClick={closeCart}
@@ -243,7 +247,10 @@ function CartDrawer() {
             </div>
             <button
               className="btn-primary w-full"
-              onClick={() => { closeCart(); window.location.href = "/checkout"; }}
+              onClick={() => {
+                closeCart()
+                router.push("/checkout")
+              }}
             >
               Proceed to Checkout
             </button>
@@ -291,10 +298,12 @@ function CartItem({
     <div className="flex gap-4 p-2 bg-neutral-50 rounded-lg">
       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
         {image ? (
-          <img
+          <Image
             src={image}
             alt={item.product.name}
-            className="h-full w-full object-cover"
+            fill
+            sizes="80px"
+            className="object-cover"
           />
         ) : (
           <div className="h-full w-full bg-neutral-200" />

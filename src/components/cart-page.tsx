@@ -4,11 +4,10 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCartStore } from "@/lib/store"
-import { ShoppingBag, X, ArrowLeft, ArrowRight, Trash2 } from "lucide-react"
-import { cn, formatPrice } from "@/lib/utils"
+import { ShoppingBag, ArrowLeft, ArrowRight, Trash2 } from "lucide-react"
 
 export function CartPage() {
-  const { items, removeItem, updateQuantity, clearCart, getSubtotal, getItemCount, closeCart } = useCartStore()
+  const { items, removeItem, updateQuantity, clearCart, getSubtotal, getItemCount } = useCartStore()
   const subtotal = getSubtotal()
   const shipping = subtotal > 100000 ? 0 : 15000
   const total = subtotal + shipping
@@ -35,7 +34,7 @@ export function CartPage() {
               <ShoppingBag className="h-16 w-16 mx-auto text-neutral-300 mb-6" />
               <h2 className="font-display font-medium text-3xl text-neutral-900 mb-4">Your bag is empty</h2>
               <p className="text-neutral-600 mb-8 max-w-md mx-auto">
-                Looks like you haven't added any products yet. Start shopping to fill your bag with beautiful pieces.
+                Looks like you haven’t added any products yet. Start shopping to fill your bag with beautiful pieces.
               </p>
               <Link href="/shop" className="btn-primary inline-flex">
                 Continue Shopping
@@ -156,7 +155,7 @@ export function CartPage() {
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     </div>
                     <h4 className="font-medium text-sm text-neutral-900">Support</h4>
-                    <p className="text-xs text-neutral-500">We're here to help</p>
+                    <p className="text-xs text-neutral-500">We’re here to help</p>
                   </div>
                 </div>
               </div>
@@ -180,6 +179,7 @@ function CartItem({
     quantity: number
     product: {
       name: string
+      slug: string
       price: number
       images: string[]
     }
@@ -214,7 +214,7 @@ function CartItem({
       <div className="flex-1 min-w-0 flex flex-col justify-between">
         <div>
           <Link
-            href={`/product/${(item.product as any).id || item.product.name}`}
+            href={`/product/${item.product.slug}`}
             className="font-medium text-neutral-900 hover:text-black transition-colors truncate block"
           >
             {item.product.name}

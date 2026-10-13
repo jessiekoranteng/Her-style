@@ -1,4 +1,4 @@
-import { PrismaClient, Role, OrderStatus, PaymentStatus, AddressType } from "@prisma/client"
+import { PrismaClient, Role } from "@prisma/client"
 import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
@@ -292,6 +292,28 @@ async function main() {
   })
 
   console.log("✅ Demo user created (demo@herstyle.com / password123)")
+
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@herstyle.com"
+  const adminPassword = process.env.ADMIN_PASSWORD || "Admin123!"
+  const adminPasswordHash = await bcrypt.hash(adminPassword, 12)
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: { role: Role.ADMIN, passwordHash: adminPasswordHash },
+    create: {
+      email: adminEmail,
+      name: "HerStyle Admin",
+      passwordHash: adminPasswordHash,
+      role: Role.ADMIN,
+    },
+  })
+
+  await prisma.siteSettings.upsert({
+    where: { id: "default" },
+    update: {},
+    create: { id: "default" },
+  })
+
+  console.log(`✅ Admin user ready (${adminEmail})`)
 
   console.log("🎉 Seeding complete!")
 }

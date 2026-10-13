@@ -66,7 +66,7 @@ export interface ShippingAddress {
   country: string
 }
 
-export interface BillingAddress extends ShippingAddress {}
+export type BillingAddress = ShippingAddress
 
 export interface Order {
   id: string

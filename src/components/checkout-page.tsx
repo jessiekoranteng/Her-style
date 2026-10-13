@@ -2,9 +2,11 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useCartStore } from "@/lib/store"
-import { ShoppingBag, Lock, ChevronRight, MapPin, Mail, Phone, CreditCard, Check, Loader2 } from "lucide-react"
-import { cn, formatPrice } from "@/lib/utils"
+import { ShoppingBag, Lock, ChevronRight, MapPin, Phone, CreditCard, Check, Loader2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface CheckoutFormData {
   // Shipping
@@ -31,6 +33,7 @@ const ghanaRegions = [
 ]
 
 export function CheckoutPage() {
+  const router = useRouter()
   const { items, getSubtotal, clearCart } = useCartStore()
   const subtotal = getSubtotal()
   const shipping = subtotal > 100000 ? 0 : 15000
@@ -55,7 +58,7 @@ export function CheckoutPage() {
     cardExpiry: "",
     cardCvc: "",
   })
-  const [errors, setErrors] = React.useState<Partial<CheckoutFormData>>({})
+  const [errors, setErrors] = React.useState<Partial<Record<keyof CheckoutFormData, string>>>({})
 
   const handleInputChange = (field: keyof CheckoutFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -65,13 +68,13 @@ export function CheckoutPage() {
   }
 
   const validateStep1 = () => {
-    const newErrors: Partial<CheckoutFormData> = {}
+    const newErrors: Partial<Record<keyof CheckoutFormData, string>> = {}
     const requiredFields: (keyof CheckoutFormData)[] = [
       "firstName", "lastName", "email", "phone", "addressLine1", "city", "region"
     ]
     requiredFields.forEach(field => {
       if (!formData[field]) {
-        newErrors[field] = "This field is required" as any
+        newErrors[field] = "This field is required"
       }
     })
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -86,7 +89,7 @@ export function CheckoutPage() {
 
   const validateStep2 = () => {
     if (formData.paymentMethod === "card") {
-      const newErrors: Partial<CheckoutFormData> = {}
+      const newErrors: Partial<Record<keyof CheckoutFormData, string>> = {}
       if (!formData.cardName) newErrors.cardName = "This field is required"
       if (!formData.cardNumber) newErrors.cardNumber = "This field is required"
       if (!formData.cardExpiry) newErrors.cardExpiry = "This field is required"
@@ -124,7 +127,7 @@ export function CheckoutPage() {
     clearCart()
     setIsProcessing(false)
     // Redirect to success page
-    window.location.href = `/checkout/success?order=HS${Date.now()}`
+    router.push(`/checkout/success?order=HS${Date.now()}`)
   }
 
   const steps = [
@@ -499,9 +502,9 @@ export function CheckoutPage() {
                     <div className="space-y-3 max-h-60 overflow-y-auto">
                       {items.map(item => (
                         <div key={item.id} className="flex items-center gap-4 py-2 border-b border-neutral-200 last:border-0">
-                          <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100">
+                          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100">
                             {item.product.images[0] ? (
-                              <img src={item.product.images[0]} alt={item.product.name} className="h-full w-full object-cover" />
+                              <Image src={item.product.images[0]} alt={item.product.name} fill sizes="64px" className="object-cover" />
                             ) : (
                               <div className="h-full w-full bg-neutral-200" />
                             )}
@@ -577,9 +580,9 @@ export function CheckoutPage() {
                 <div className="space-y-3 mb-6 max-h-64 overflow-y-auto pr-2">
                   {items.map(item => (
                     <div key={item.id} className="flex gap-3">
-                      <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100">
+                      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100">
                         {item.product.images[0] ? (
-                          <img src={item.product.images[0]} alt={item.product.name} className="h-full w-full object-cover" />
+                          <Image src={item.product.images[0]} alt={item.product.name} fill sizes="64px" className="object-cover" />
                         ) : (
                           <div className="h-full w-full bg-neutral-200" />
                         )}

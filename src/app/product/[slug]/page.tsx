@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Image from "next/image"
 import { ProductDetail } from "@/components/product-detail"
 import { getProductBySlug, getFeaturedProducts } from "@/lib/data"
 

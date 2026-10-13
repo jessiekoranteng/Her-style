@@ -4,8 +4,8 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCartStore } from "@/lib/store"
-import { Heart, ShoppingBag, ChevronLeft, ChevronRight, Minus, Plus, Truck, Shield, RotateCcw, Headphones } from "lucide-react"
-import { cn, formatPrice } from "@/lib/utils"
+import { Heart, ShoppingBag, Minus, Plus, Truck, Shield, RotateCcw, Headphones } from "lucide-react"
+import { cn } from "@/lib/utils"
 import type { Product } from "@/lib/types"
 import { ProductCard } from "@/components/product-card"
 
@@ -276,7 +276,7 @@ export function ProductDetail({ product, relatedProducts }: ProductDetailProps) 
                 </div>
                 <div>
                   <p className="font-medium text-sm text-neutral-900">Support</p>
-                  <p className="text-xs text-neutral-500">We're here to help</p>
+                  <p className="text-xs text-neutral-500">We’re here to help</p>
                 </div>
               </div>
             </div>

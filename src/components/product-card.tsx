@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useCartStore } from "@/lib/store"
 import { Heart, ShoppingBag } from "lucide-react"
-import { cn, formatPrice } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import type { Product } from "@/lib/types"
 import * as React from "react"
 
@@ -75,7 +75,7 @@ export function ProductCard({ product, variant = "default", priority = false }: 
   return (
     <article className="product-card group">
       <div className="relative aspect-square overflow-hidden bg-neutral-100">
-        <Link href={`/product/${product.slug}`} className="block h-full" aria-label={product.name}>
+        <Link href={`/product/${product.slug}`} className="relative block h-full" aria-label={product.name}>
           {image ? (
             <Image
               src={image}

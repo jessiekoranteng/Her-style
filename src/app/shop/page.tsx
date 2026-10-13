@@ -17,7 +17,7 @@ export default function ShopPage() {
         <div className="mb-12">
           <h1 className="font-display font-medium text-3xl sm:text-4xl mb-4">Shop All Products</h1>
           <p className="text-neutral-600 text-lg max-w-2xl">
-            Discover our curated collection of women's fashion. From elegant dresses to premium lace fabrics, stylish accessories to comfortable footwear.
+            Discover our curated collection of women’s fashion. From elegant dresses to premium lace fabrics, stylish accessories to comfortable footwear.
           </p>
         </div>
 

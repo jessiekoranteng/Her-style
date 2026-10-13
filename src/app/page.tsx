@@ -1,8 +1,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ProductCard } from "@/components/product-card"
+import { HeroCarousel } from "@/components/hero-carousel"
 import { getFeaturedProducts, getAllCategories } from "@/lib/data"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 export default function Home() {
   const featuredProducts = getFeaturedProducts()
@@ -17,7 +18,7 @@ export default function Home() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <Link
                 key={category.id}
                 href={`/category/${category.slug}`}
@@ -145,97 +146,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
-  )
-}
-
-function HeroCarousel() {
-  const slides = [
-    {
-      headline: "Style for Every Occasion",
-      description: "Discover fashionable women's clothing, beautiful laces, unique accessories, stylish shoes and bags – all in one place.",
-      image: "/images/hero-1.jpg",
-      alt: "Woman in black dress holding handbag in boutique",
-    },
-    {
-      headline: "New Season Arrivals",
-      description: "Fresh styles for the season. Explore our latest collection of dresses, accessories, and footwear.",
-      image: "/images/hero-2.jpg",
-      alt: "New season fashion collection",
-    },
-    {
-      headline: "Elegance Redefined",
-      description: "Timeless pieces that elevate your wardrobe. Quality craftsmanship meets contemporary design.",
-      image: "/images/hero-3.jpg",
-      alt: "Elegant fashion display",
-    },
-  ]
-
-  return (
-    <div className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] min-h-[500px] overflow-hidden">
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            index === 0 ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-        >
-          <Image
-            src={slide.image}
-            alt={slide.alt}
-            fill
-            priority={index === 0}
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-          <div className="container-custom h-full flex items-center">
-            <div className="max-w-2xl animate-slide-up stagger-1">
-              <p className="text-white/80 text-sm uppercase tracking-widest mb-4">TRENDY • ELEGANT • YOU</p>
-              <h1 className="font-display font-medium text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-tight">
-                {slide.headline}
-              </h1>
-              <p className="text-white/90 text-base sm:text-lg mb-8 max-w-xl leading-relaxed">
-                {slide.description}
-              </p>
-              <Link
-                href="/shop"
-                className="btn-primary inline-flex"
-              >
-                Shop Now
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      ))}
-
-      {/* Carousel Controls */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
-        <button
-          className="pointer-events-auto h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          className="pointer-events-auto h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-      </div>
-
-      {/* Pagination */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className="pointer-events-auto h-2 w-2 rounded-full bg-white/50 hover:bg-white transition-colors"
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   )
 }

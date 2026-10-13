@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import type { Prisma } from "@prisma/client"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
 
@@ -43,7 +44,9 @@ export async function GET() {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
-    const { passwordHash, ...userWithoutPassword } = user
+    const userWithoutPassword = Object.fromEntries(
+      Object.entries(user).filter(([key]) => key !== "passwordHash")
+    )
     return NextResponse.json(userWithoutPassword)
   } catch (error) {
     console.error("GET /api/user error:", error)
@@ -62,7 +65,7 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json()
     const data = updateProfileSchema.parse(body)
 
-    const updateData: any = {}
+    const updateData: Prisma.UserUpdateInput = {}
     if (data.name) updateData.name = data.name
     if (data.email) updateData.email = data.email
 

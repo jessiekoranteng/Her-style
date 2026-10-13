@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { MapPin, Mail, Phone, Clock, Send, Loader2 } from "lucide-react"
+import { MapPin, Mail, Phone, Clock, Send } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -200,7 +200,7 @@ export default function ContactPage() {
                 How long does shipping take?
                 <svg className="h-5 w-5 text-neutral-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <p className="mt-4 text-neutral-600 leading-relaxed">We offer fast delivery within 2-5 business days for Accra and 3-7 business days for other regions in Ghana. You'll receive tracking information once your order ships.</p>
+              <p className="mt-4 text-neutral-600 leading-relaxed">We offer fast delivery within 2-5 business days for Accra and 3-7 business days for other regions in Ghana. You’ll receive tracking information once your order ships.</p>
             </details>
             <details className="group bg-white rounded-lg p-6">
               <summary className="flex items-center justify-between cursor-pointer list-none font-medium text-neutral-900">
@@ -221,21 +221,21 @@ export default function ContactPage() {
                 Do you offer international shipping?
                 <svg className="h-5 w-5 text-neutral-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <p className="mt-4 text-neutral-600 leading-relaxed">Currently we ship within Ghana only. We're working on expanding to international destinations soon. Sign up for our newsletter to stay updated!</p>
+              <p className="mt-4 text-neutral-600 leading-relaxed">Currently we ship within Ghana only. We’re working on expanding to international destinations soon. Sign up for our newsletter to stay updated!</p>
             </details>
             <details className="group bg-white rounded-lg p-6">
               <summary className="flex items-center justify-between cursor-pointer list-none font-medium text-neutral-900">
                 How can I track my order?
                 <svg className="h-5 w-5 text-neutral-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <p className="mt-4 text-neutral-600 leading-relaxed">Once your order ships, you'll receive an email with tracking details. You can also track your order by logging into your account and visiting the Orders section.</p>
+              <p className="mt-4 text-neutral-600 leading-relaxed">Once your order ships, you’ll receive an email with tracking details. You can also track your order by logging into your account and visiting the Orders section.</p>
             </details>
             <details className="group bg-white rounded-lg p-6">
               <summary className="flex items-center justify-between cursor-pointer list-none font-medium text-neutral-900">
                 Can I modify or cancel my order?
                 <svg className="h-5 w-5 text-neutral-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <p className="mt-4 text-neutral-600 leading-relaxed">We process orders quickly. If you need to modify or cancel, please contact us immediately at support@herstyle.com. We'll do our best to accommodate if the order hasn't shipped yet.</p>
+              <p className="mt-4 text-neutral-600 leading-relaxed">We process orders quickly. If you need to modify or cancel, please contact us immediately at support@herstyle.com. We’ll do our best to accommodate if the order hasn’t shipped yet.</p>
             </details>
           </div>
         </div>

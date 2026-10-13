@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useCartStore } from "@/lib/store"
-import { User, Package, Heart, Settings, LogOut, CreditCard, MapPin, Bell, ChevronRight, Loader2 } from "lucide-react"
+import Image from "next/image"
+import { User, Package, Heart, Settings, LogOut, CreditCard, MapPin, Bell } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -17,12 +17,16 @@ const navItems = [
 ]
 
 export function AccountPage() {
-  const { getItemCount } = useCartStore()
   const [activeTab, setActiveTab] = React.useState("overview")
-  const itemCount = getItemCount()
 
   // Mock user data
-  const user = {
+  const user: {
+    name: string
+    email: string
+    phone: string
+    memberSince: string
+    avatar: string | null
+  } = {
     name: "Ama Serwaa",
     email: "ama.serwaa@email.com",
     phone: "+233 20 123 4567",
@@ -46,7 +50,7 @@ export function AccountPage() {
           <div className="space-y-8 animate-slide-up">
             <div className="bg-neutral-50 rounded-lg p-6">
               <h2 className="font-medium text-neutral-900 mb-4">Welcome back, {user.name.split(" ")[0]}!</h2>
-              <p className="text-neutral-600">Here's a quick summary of your account activity.</p>
+              <p className="text-neutral-600">Here’s a quick summary of your account activity.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <AccountStatCard icon={Package} label="Total Orders" value="12" href="/account/orders" />
@@ -160,7 +164,7 @@ export function AccountPage() {
               ].map(item => (
                 <div key={item.id} className="bg-white border border-neutral-200 rounded-lg overflow-hidden hover:border-neutral-300 transition-colors">
                   <div className="relative aspect-square overflow-hidden bg-neutral-100">
-                    <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                    <Image src={item.image} alt={item.name} fill sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
                     <button className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white shadow-md">
                       <Heart className="h-4 w-4 text-red-500 fill-current" />
                     </button>
@@ -250,9 +254,9 @@ export function AccountPage() {
               <div className="sticky top-24">
                 <div className="bg-neutral-50 rounded-lg p-6 mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-16 w-16 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                    <div className="relative h-16 w-16 overflow-hidden rounded-full bg-black flex items-center justify-center flex-shrink-0">
                       {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="h-full w-full rounded-full object-cover" />
+                        <Image src={user.avatar} alt={user.name} fill sizes="64px" className="object-cover" />
                       ) : (
                         <span className="text-2xl font-display font-medium text-white">{user.name.charAt(0)}</span>
                       )}

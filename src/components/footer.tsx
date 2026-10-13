@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, Truck, Shield, RotateCcw, Headphones } from "lucide-react"
+import type { PublicSiteSettings } from "@/lib/site-settings"
 
 const footerLinks = {
   quickLinks: [
@@ -47,7 +48,7 @@ const features = [
   { icon: Headphones, title: "Customer Support", description: "We're here to help" },
 ]
 
-export function Footer() {
+export function Footer({ settings }: { settings: PublicSiteSettings }) {
   return (
     <footer className="bg-white border-t border-neutral-200">
       <div className="container-custom py-16">
@@ -60,12 +61,12 @@ export function Footer() {
                 </svg>
               </div>
               <div>
-                <span className="text-2xl font-display font-medium text-black">HerStyle</span>
-                <p className="text-xs text-neutral-500 uppercase tracking-wider leading-none">CLOTHES • LACES • ACCESSORIES • SHOES • BAGS</p>
+                <span className="text-2xl font-display font-medium text-black">{settings.storeName}</span>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider leading-none">{settings.tagline}</p>
               </div>
             </Link>
             <p className="text-neutral-600 text-sm mb-6 max-w-xs">
-              Discover fashionable women's clothing, beautiful laces, unique accessories, stylish shoes and bags – all in one place.
+              {settings.description}
             </p>
             <div className="flex gap-4">
               <a
@@ -179,7 +180,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-neutral-200">
           <p className="text-sm text-neutral-500">
-            © {new Date().getFullYear()} HerStyle. All rights reserved.
+            © {new Date().getFullYear()} {settings.storeName}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-sm text-neutral-500">Payment Methods</span>

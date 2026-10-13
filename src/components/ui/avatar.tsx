@@ -38,6 +38,8 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         )}
         {...props}
       >
+        {/* A native image keeps this generic avatar compatible with arbitrary external URLs. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}

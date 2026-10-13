@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import type { Prisma } from "@prisma/client"
 import { z } from "zod"
 
 const productQuerySchema = z.object({
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const query = productQuerySchema.parse(Object.fromEntries(searchParams))
 
-    const where: any = { isActive: true }
+    const where: Prisma.ProductWhereInput = { isActive: true }
 
     if (query.category) where.category = { slug: query.category }
     if (query.featured) where.isFeatured = true
@@ -29,7 +30,7 @@ export async function GET(request: NextRequest) {
       ]
     }
 
-    const orderBy: any = {}
+    const orderBy: Prisma.ProductOrderByWithRelationInput = {}
     switch (query.sort) {
       case "newest":
         orderBy.createdAt = "desc"

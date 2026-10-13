@@ -12,6 +12,7 @@ model User {
   email         String    @unique
   name          String?
   passwordHash  String?
+  authVersion   Int       @default(0)
   emailVerified DateTime?
   image         String?
   role          Role      @default(CUSTOMER)
@@ -273,4 +274,21 @@ model Wishlist {
 
   @@unique([userId, productId])
   @@map("wishlist")
+}
+
+model SiteSettings {
+  id               String   @id @default("default")
+  storeName        String   @default("HerStyle")
+  tagline          String   @default("TRENDY • ELEGANT • YOU")
+  description      String   @default("Discover fashionable women's clothing, beautiful laces, unique accessories, stylish shoes and bags – all in one place.")
+  storeEmail       String   @default("hello@herstyle.com")
+  storePhone       String   @default("+233 20 123 4567")
+  storeAddress     String   @default("Accra, Ghana")
+  currency         String   @default("GHS")
+  heroTitle        String   @default("Style for Every Occasion")
+  heroDescription  String   @default("Discover fashionable women's clothing, beautiful laces, unique accessories, stylish shoes and bags – all in one place.")
+  heroImage        String   @default("/images/hero-1.jpg")
+  updatedAt        DateTime @updatedAt
+
+  @@map("site_settings")
 }

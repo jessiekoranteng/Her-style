@@ -34,7 +34,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const valid = await bcrypt.compare(password, user.passwordHash)
         if (!valid) return null
 
-        return { id: user.id, email: user.email, name: user.name, role: user.role }
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        }
       },
     }),
   ],
@@ -42,7 +47,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
-        token.role = (user as any).role
+        token.role = user.role
+      } else if (token.id) {
+        const currentUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true },
+        })
+
+        if (!currentUser) {
+          token.role = "REVOKED"
+        } else {
+          token.role = currentUser.role
+        }
       }
       return token
     },
