@@ -36,9 +36,15 @@ async function getCustomer(id: string) {
               },
               orderBy: { createdAt: "desc" },
       },
+      wishlist: {
+        include: {
+          product: { select: { name: true, images: true, slug: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      },
       _count: { select: { orders: true, addresses: true, reviews: true, wishlist: true } },
     },
-  })
+  }) as Promise<any>
 }
 
 function getSegment(customer: any) {
@@ -145,7 +151,7 @@ export default async function CustomerDetailPage({ params }: CustomerPageProps) 
               {customer.orders.length === 0 ? (
                 <div className="px-6 py-12 text-center text-neutral-500">No orders yet</div>
               ) : (
-                customer.orders.map((order) => (
+                customer.orders.map((order: any) => (
                   <Link key={order.id} href={`/admin/orders/${order.id}`} className="px-6 py-4 flex items-center justify-between hover:bg-neutral-50 transition-colors">
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-12 rounded-lg bg-neutral-100 flex items-center justify-center">
@@ -185,7 +191,7 @@ export default async function CustomerDetailPage({ params }: CustomerPageProps) 
                 <p className="text-neutral-500 text-center py-8">No addresses saved</p>
               ) : (
                 <div className="space-y-4">
-                  {customer.addresses.map((address) => (
+                  {customer.addresses.map((address: any) => (
                     <div key={address.id} className="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
                       <div className="flex items-start justify-between">
                         <div>
@@ -288,6 +294,35 @@ export default async function CustomerDetailPage({ params }: CustomerPageProps) 
             </div>
           </div>
         </div>
+
+        {/* Wishlist Items */}
+        {customer.wishlist && customer.wishlist.length > 0 && (
+          <div className="bg-white rounded-xl border border-neutral-200 p-6">
+            <h3 className="font-medium text-neutral-900 mb-4 flex items-center gap-2">
+              <svg className="h-5 w-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              Wishlist Items ({customer.wishlist.length})
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {customer.wishlist.map((item: any) => (
+                <Link key={item.id} href={`/product/${item.product.slug}`} className="bg-white rounded-lg border border-neutral-200 p-4 hover:border-neutral-300 hover:shadow-md transition-all group">
+                  <div className="relative aspect-square overflow-hidden rounded-lg bg-neutral-100 mb-3">
+                    {item.product.images[0] ? (
+                      <img src={item.product.images[0]} alt={item.product.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center">
+                        <span className="text-2xl font-bold text-neutral-300">{item.product.name.charAt(0)}</span>
+                      </div>
+                    )}
+                  </div>
+                  <p className="font-medium text-neutral-900 truncate group-hover:text-black transition-colors">{item.product.name}</p>
+                  <p className="text-sm text-neutral-500 mt-1">Added {new Date(item.createdAt).toLocaleDateString()}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
